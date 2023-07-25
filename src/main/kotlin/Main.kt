@@ -39,7 +39,7 @@ fun main() {
             val rate = parseXml(data, currencyCode)
             if (rate != null) {
                 val (name, value) = rate
-                println("$currencyCode ($name): $value on $datePoint")
+                println("$currencyCode ($name): $value")
             } else {
                 println("Курс для валюты с кодом $currencyCode на дату $formatterDate не найден.")
             }
@@ -72,7 +72,7 @@ fun parseXml(xmlData: String, currencyCode: String): Pair<String, String>? {
     for (i in 0 until valutes.length()) {
         val valute = valutes.getJSONObject(i)
         if (valute.getString("CharCode") == currencyCode) {
-            val name = valute.getString("Name")
+            val name = valute.getString("Name").split(" ")[0]
             val value = valute.getString("Value")
             return Pair(name, value)
         }
