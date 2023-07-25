@@ -12,7 +12,6 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("com.github.kittinunf.fuel:fuel:2.3.1")
     implementation ("org.json:json:20211205")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.12.3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")

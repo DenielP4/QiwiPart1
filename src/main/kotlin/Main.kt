@@ -1,11 +1,7 @@
-import com.fasterxml.jackson.databind.ObjectMapper
-import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
-import com.fasterxml.jackson.dataformat.xml.XmlMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import org.json.XML
-import org.simpleframework.xml.core.Persister
+import java.nio.charset.Charset
 
 fun main() {
     var input = readLine()
@@ -27,7 +23,7 @@ fun main() {
         connection.requestMethod = "GET"
 
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-            val data = connection.inputStream.bufferedReader().readText()
+            val data = connection.inputStream.bufferedReader(Charset.forName("windows-1251")).readText()
             val rate = parseXml(data, currencyCode)
             if (rate != null) {
                 val (name, value) = rate
@@ -62,7 +58,7 @@ fun parseXml(xmlData: String, currencyCode: String): Pair<String, String>? {
     for (i in 0 until valutes.length()) {
         val valute = valutes.getJSONObject(i)
         if (valute.getString("CharCode") == currencyCode) {
-            val name = valute.getString("Name").split(" ")[0]
+            val name = valute.getString("Name")
             val value = valute.getString("Value")
             return Pair(name, value)
         }
