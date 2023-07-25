@@ -12,6 +12,12 @@ fun main() {
         println("Ошибка чтения ввода!")
     }
 
+    if (args.size != 3 || args[0] != "currency_rates") {
+        println("Запрос некорректен")
+        println("Пример запроса: currency_rates -code=USD -date=2022-10-08")
+        return
+    }
+
     val currencyCode = args[1].substringAfter("=")
     var date = args[2].substringAfter("=")
     val formatterDate = formatDate(date)
