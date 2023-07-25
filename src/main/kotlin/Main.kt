@@ -16,17 +16,9 @@ fun main() {
         println("Ошибка чтения ввода!")
     }
 
-    if (args.size != 3 || args[0] != "currency_rates") {
-        println("Неправильное использование утилиты.")
-        println("Используйте: currency_rates -code=USD -date=2022-10-08")
-        return
-    }
-
     val currencyCode = args[1].substringAfter("=")
-    var date = args[2].substringAfter("=") // это дата с -
-    val formatterDate = formatDate(date)// это с /
-    val datePoint = date.replace("-", ".")
-    println(formatterDate)
+    var date = args[2].substringAfter("=")
+    val formatterDate = formatDate(date)
     val apiUrl = "https://www.cbr.ru/scripts/XML_daily.asp?date_req=$formatterDate"
 
     try {
@@ -65,8 +57,6 @@ fun formatDate(date: String): String {
 }
 fun parseXml(xmlData: String, currencyCode: String): Pair<String, String>? {
     val jsonObj = XML.toJSONObject(xmlData)
-    val xml = jsonObj.toString(4)
-//    val xml = JSONObject(org.json.XML.toJSONObject(xmlData))
     val valutes = jsonObj.getJSONObject("ValCurs").getJSONArray("Valute")
 
     for (i in 0 until valutes.length()) {
